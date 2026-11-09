@@ -135,14 +135,16 @@ test('submitEnquiryPayload blocks unconfigured endpoint and distinguishes HTTP 2
 test('GA4 AnalyticsManager stays disabled until valid ID is set, deduplicates events, and strips PII', () => {
   assert.equal(isValidGa4MeasurementId(''), false);
   assert.equal(isValidGa4MeasurementId('G-XXXXXXXXXX'), false);
+  assert.equal(isValidGa4MeasurementId('GTM-XXXXXXXX'), false);
   assert.equal(isValidGa4MeasurementId('G-9155PERTH1'), true);
+  assert.equal(isValidGa4MeasurementId('GTM-5LJQ3KBV'), true);
 
   const disabledTracker = new AnalyticsManager('');
   assert.equal(disabledTracker.isEnabled(), false);
   assert.equal(disabledTracker.trackPageView('/index.html', 'Home'), false);
   assert.equal(disabledTracker.getRecordedEvents().length, 0);
 
-  const activeTracker = new AnalyticsManager('G-9155PERTH1');
+  const activeTracker = new AnalyticsManager('GTM-5LJQ3KBV');
   assert.equal(activeTracker.isEnabled(), true);
 
   // Page view deduplication
@@ -201,7 +203,7 @@ test('GA4 AnalyticsManager stays disabled until valid ID is set, deduplicates ev
   );
 });
 
-test('all 5 HTML pages have unique titles, descriptions, canonical URLs, single H1, and zero em dashes', () => {
+test('all 5 HTML pages have GTM-5LJQ3KBV tag, unique titles, descriptions, canonical URLs, single H1, and zero em dashes', () => {
   const pages = [
     'index.html',
     'about.html',
@@ -219,6 +221,15 @@ test('all 5 HTML pages have unique titles, descriptions, canonical URLs, single 
       html.includes('—') || html.includes('&mdash;'),
       false,
       `${file} must not contain any em dashes`
+    );
+
+    assert.ok(
+      html.includes('https://www.googletagmanager.com/gtm.js?id=GTM-5LJQ3KBV'),
+      `${file} must include the GTM-5LJQ3KBV script tag in head`
+    );
+    assert.ok(
+      html.includes('function gtag(){dataLayer.push(arguments);}'),
+      `${file} must include the gtag dataLayer bootstrap in head`
     );
 
     const titleMatch = html.match(/<title>([^<]+)<\/title>/);

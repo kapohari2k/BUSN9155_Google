@@ -61,10 +61,9 @@ To enable live form submissions (e.g. via Formspree):
 1. Create a form in Formspree (or an equivalent static form receiver that accepts JSON `POST` requests).
 2. Add your endpoint URL as a repository variable or secret in GitHub (`VITE_FORM_ENDPOINT=https://formspree.io/f/your_form_id`) and reference it in `.github/workflows/deploy.yml` under `env:`, or set it in `.env.local` before building.
 
-### C. Google Analytics 4 (`VITE_GA4_MEASUREMENT_ID`)
-By default, GA4 is disabled until a real Measurement ID (`G-XXXXXXXXXX`) is supplied:
-1. In Google Analytics, create a GA4 Property and a **Web Data Stream** for `https://kapohari2k.github.io/BUSN9155_Google/`.
-2. Copy the Measurement ID (e.g., `G-12345ABCDE`).
-3. Set `VITE_GA4_MEASUREMENT_ID=G-12345ABCDE` in your build environment (`.env.local` or GitHub Actions `env:`).
-4. In the GA4 Admin interface under **Data collection and modification → Data streams → Enhanced measurement**, keep **Page views** enabled (our code sets `send_page_view: false` in `gtag('config', ...)` and dispatches one clean `page_view` per page load) and **turn OFF "Form interactions"** so GA4's automatic form listener does not duplicate our custom `form_start` event or fire false `form_submit` events on failed validations.
-5. Mark `generate_lead` as a **Key Event** under **Admin → Data display → Events**.
+### C. Google Tag Manager & Google Analytics 4 (`GTM-5LJQ3KBV` / `VITE_GA4_MEASUREMENT_ID`)
+- The tag `<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5LJQ3KBV"></script>` and `window.dataLayer` / `gtag` bootstrap are embedded directly in the `<head>` of all five HTML pages (`index.html`, `about.html`, `the-audit.html`, `coverage-checklist.html`, `enquire.html`).
+- `AnalyticsManager` (`src/utils/analytics.ts`) defaults to `GTM-5LJQ3KBV` so custom events (`page_view`, `enquiry_cta_click`, `sample_or_guide_select`, `form_start`, `generate_lead`, and `form_submission_error`) are dispatched immediately via `window.gtag` / `window.dataLayer` without duplicating the `<head>` script.
+- You can optionally override the tracking ID at build time by setting `VITE_GA4_MEASUREMENT_ID=G-XXXXXXXXXX` in `.env.local` or GitHub Actions `env:`.
+- In Google Analytics 4 under **Admin → Data collection and modification → Data streams → Enhanced measurement**, **turn OFF "Form interactions"** so GA4's automatic form listener does not duplicate our custom `form_start` event or fire false `form_submit` events on failed validations.
+- Mark `generate_lead` as a **Key Event** under **Admin → Data display → Events**.

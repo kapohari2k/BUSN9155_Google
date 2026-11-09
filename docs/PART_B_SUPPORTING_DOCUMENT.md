@@ -39,9 +39,9 @@ All search terms are treated as **relevance-based targeting hypotheses** rather 
 ## 2. Google Analytics 4 (GA4) Measurement Plan & Technical Design
 
 ### 2.1 Privacy-Safe & Configurable Architecture (`src/utils/analytics.ts`)
-- **Opt-in activation**: GA4 remains completely inactive until a valid Measurement ID (`G-XXXXXXXXXX`) is supplied via `VITE_GA4_MEASUREMENT_ID`. The website functions identically with or without analytics.
+- **Static `<head>` GTM tag & active event layer**: All five HTML pages embed `<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5LJQ3KBV"></script>` and the `window.dataLayer` / `gtag` bootstrap directly in `<head>`. `AnalyticsManager` defaults to `GTM-5LJQ3KBV` (and supports optional override via `VITE_GA4_MEASUREMENT_ID`) so custom events are dispatched immediately while the website continues to work even if ad-blockers block external scripts.
 - **Deduplication**:
-  - When `gtag.js` is initialised, `gtag('config', id, { send_page_view: false, anonymize_ip: true })` disables automatic config-level pageviews so our explicit `trackPageView()` call records exactly one `page_view` per page load.
+  - `injectGtagScriptIfNeeded()` detects the existing `<head>` script for `GTM-5LJQ3KBV` so a duplicate `<script>` tag is never appended at runtime. When a `G-` GA4 Measurement ID is used, `gtag('config', id, { send_page_view: false, anonymize_ip: true })` disables automatic config-level pageviews so our explicit `trackPageView()` call records exactly one `page_view` per page load.
   - `trackFormStart()` uses a session/page boolean guard (`formStartRecorded`) and `{ once: true }` listeners on `#enquiry-form` so `form_start` fires at most once when a visitor begins interacting with the form.
 - **Strict PII & URL Stripping (`sanitizeAnalyticsParams` & `getCleanPageLocation`)**:
   - Query strings and hashes are stripped from `page_location`.

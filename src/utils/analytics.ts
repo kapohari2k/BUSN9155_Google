@@ -55,15 +55,23 @@ const FORBIDDEN_PARAM_KEYS = new Set([
   'search_term',
 ]);
 
-const GA4_ID_PATTERN = /^G-[A-Z0-9]{4,16}$/i;
+export const DEFAULT_ANALYTICS_ID = 'GTM-5LJQ3KBV';
+
+const ANALYTICS_ID_PATTERN = /^(G|GTM)-[A-Z0-9]{4,16}$/i;
 
 export function isValidGa4MeasurementId(id?: string | null): boolean {
   if (!id) return false;
   const trimmed = id.trim();
-  if (!trimmed || trimmed.toUpperCase() === 'G-XXXXXXXXXX') {
+  const upper = trimmed.toUpperCase();
+  if (
+    !trimmed ||
+    upper === 'G-XXXXXXXXXX' ||
+    upper === 'GTM-XXXXXXXX' ||
+    upper === 'GTM-XXXXXXXXXX'
+  ) {
     return false;
   }
-  return GA4_ID_PATTERN.test(trimmed);
+  return ANALYTICS_ID_PATTERN.test(trimmed);
 }
 
 export function sanitizeAnalyticsParams(
@@ -158,6 +166,7 @@ export class AnalyticsManager {
     }
 
     const id = this.measurementId!;
+    const isGtmId = id.toUpperCase().startsWith('GTM-');
     window.dataLayer = window.dataLayer || [];
     if (!window.gtag) {
       window.gtag = function gtag() {
@@ -165,7 +174,10 @@ export class AnalyticsManager {
         window.dataLayer!.push(arguments);
       };
       window.gtag('js', new Date());
-      // Disable automatic page_view inside config so we send exactly one clean page_view per page load
+    }
+
+    if (!isGtmId) {
+      // Disable automatic page_view inside GA4 config so we send exactly one clean page_view per page load
       window.gtag('config', id, {
         send_page_view: false,
         anonymize_ip: true,
@@ -173,12 +185,14 @@ export class AnalyticsManager {
     }
 
     const existingScript = document.querySelector(
-      `script[data-ga4-id="${id}"]`
+      `script[data-ga4-id="${id}"], script[src*="id=${encodeURIComponent(id)}"]`
     );
     if (!existingScript) {
       const script = document.createElement('script');
       script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+      script.src = isGtmId
+        ? `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(id)}`
+        : `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
       script.setAttribute('data-ga4-id', id);
       document.head.appendChild(script);
     }

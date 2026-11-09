@@ -13,6 +13,8 @@ import {
 } from './data/auditSampleData';
 import {
   AnalyticsManager,
+  DEFAULT_ANALYTICS_ID,
+  isValidGa4MeasurementId,
   type SafeCtaPlacement,
   type SafeSampleGuideAction,
 } from './utils/analytics';
@@ -26,12 +28,18 @@ import {
 
 const CHECKLIST_STORAGE_KEY = 'local_lift_coverage_checklist_v1';
 
-function resolveGa4MeasurementId(): string | undefined {
-  if (typeof window !== 'undefined' && window.__LOCAL_LIFT_CONFIG__?.ga4MeasurementId) {
+function resolveGa4MeasurementId(): string {
+  if (
+    typeof window !== 'undefined' &&
+    window.__LOCAL_LIFT_CONFIG__?.ga4MeasurementId !== undefined
+  ) {
     return window.__LOCAL_LIFT_CONFIG__.ga4MeasurementId;
   }
   const envId = import.meta.env.VITE_GA4_MEASUREMENT_ID;
-  return typeof envId === 'string' ? envId : undefined;
+  if (typeof envId === 'string' && isValidGa4MeasurementId(envId)) {
+    return envId.trim();
+  }
+  return DEFAULT_ANALYTICS_ID;
 }
 
 function resolveFormEndpoint(formEl?: HTMLFormElement | null): string | undefined {

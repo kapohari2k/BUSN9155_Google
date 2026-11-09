@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation plan to embed the GTM-5LJQ3KBV tag across the head of all five static HTML pages and enable immediate custom event tracking via dataLayer and gtag with strict PII sanitisation and deduplication.",
+  "updatedAt":  "2026-11-09T08:16:53.971052832Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}
