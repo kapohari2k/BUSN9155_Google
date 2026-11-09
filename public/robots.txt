@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kapohari2k.github.io/BUSN9155_Google/sitemap.xml

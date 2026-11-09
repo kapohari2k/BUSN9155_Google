@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" fill="none" role="img" aria-labelledby="workflowTitle workflowDesc">
+  <title id="workflowTitle">Local Lift three-stage comparison and wording workflow</title>
+  <desc id="workflowDesc">Diagram showing Stage 1 Owner-confirmed operating details compared against Stage 2 Public touchpoints (website pages, Google Business Profile, and quote steps) to produce Stage 3 Prioritised findings and replacement wording.</desc>
+  <rect width="800" height="320" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  
+  <!-- Stage 1 -->
+  <rect x="28" y="36" width="216" height="248" rx="8" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5"/>
+  <rect x="44" y="54" width="68" height="24" rx="4" fill="#0F172A"/>
+  <text x="78" y="70" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" text-anchor="middle">STAGE 01</text>
+  <text x="44" y="104" fill="#0F172A" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700">Owner Confirmation</text>
+  <text x="44" y="130" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Active clean types offered</text>
+  <text x="44" y="154" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Standard inclusions &amp; limits</text>
+  <text x="44" y="178" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Current preferred suburbs</text>
+  <text x="44" y="202" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Quote details needed first</text>
+  <rect x="44" y="226" width="184" height="40" rx="6" fill="#F1F5F9"/>
+  <text x="56" y="250" fill="#0F172A" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">Source of operating truth</text>
+
+  <!-- Connector 1 -->
+  <path d="M244 160H284" stroke="#0284C7" stroke-width="2" stroke-dasharray="4 4"/>
+  <polygon points="284,155 292,160 284,165" fill="#0284C7"/>
+
+  <!-- Stage 2 -->
+  <rect x="292" y="36" width="216" height="248" rx="8" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.5"/>
+  <rect x="308" y="54" width="68" height="24" rx="4" fill="#0284C7"/>
+  <text x="342" y="70" fill="#FFFFFF" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" text-anchor="middle">STAGE 02</text>
+  <text x="308" y="104" fill="#0F172A" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700">Cross-Point Comparison</text>
+  <text x="308" y="130" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Agreed website service pages</text>
+  <text x="308" y="154" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Google Business Profile areas</text>
+  <text x="308" y="178" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Enquiry form &amp; quote prompts</text>
+  <text x="308" y="202" fill="#334155" font-family="Public Sans, sans-serif" font-size="12.5">• Already-clear items flagged</text>
+  <rect x="308" y="226" width="184" height="40" rx="6" fill="#E0F2FE"/>
+  <text x="320" y="250" fill="#0369A1" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">Gaps &amp; conflicts isolated</text>
+
+  <!-- Connector 2 -->
+  <path d="M508 160H548" stroke="#0284C7" stroke-width="2"/>
+  <polygon points="548,155 556,160 548,165" fill="#0284C7"/>
+
+  <!-- Stage 3 -->
+  <rect x="556" y="36" width="216" height="248" rx="8" fill="#0F172A" stroke="#0F172A" stroke-width="1.5"/>
+  <rect x="572" y="54" width="68" height="24" rx="4" fill="#38BDF8"/>
+  <text x="606" y="70" fill="#0F172A" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" text-anchor="middle">STAGE 03</text>
+  <text x="572" y="104" fill="#F8FAFC" font-family="Plus Jakarta Sans, sans-serif" font-size="15" font-weight="700">Ready-to-Publish Pack</text>
+  <text x="572" y="130" fill="#CBD5E1" font-family="Public Sans, sans-serif" font-size="12.5">• Prioritised findings + reasons</text>
+  <text x="572" y="154" fill="#CBD5E1" font-family="Public Sans, sans-serif" font-size="12.5">• Exact replacement wording</text>
+  <text x="572" y="178" fill="#CBD5E1" font-family="Public Sans, sans-serif" font-size="12.5">• Page placement instructions</text>
+  <text x="572" y="202" fill="#CBD5E1" font-family="Public Sans, sans-serif" font-size="12.5">• Owner vs web contact split</text>
+  <rect x="572" y="226" width="184" height="40" rx="6" fill="#1E293B"/>
+  <text x="584" y="250" fill="#38BDF8" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600">+ Review call to refine</text>
+</svg>
